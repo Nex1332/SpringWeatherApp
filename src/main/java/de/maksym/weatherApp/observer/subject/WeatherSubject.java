@@ -1,8 +1,8 @@
-package de.maksym.weatherApp.subject;
+package de.maksym.weatherApp.observer.subject;
 
-import de.maksym.weatherApp.interfaces.Observer;
-import de.maksym.weatherApp.interfaces.Subject;
-import de.maksym.weatherApp.repository.WeatherRepository;
+import de.maksym.weatherApp.observer.interfaces.Observer;
+import de.maksym.weatherApp.observer.interfaces.Subject;
+import de.maksym.weatherApp.web.DAO.WeatherDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,17 +11,14 @@ import java.util.*;
 @Component
 public class WeatherSubject implements Subject {
     private ArrayList observers;
+    private double temp;
     private double maxTemp;
     private double minTemp;
+    private double humidity;
     private double pressure;
 
-
-    private final WeatherRepository weatherRepository;
-
-    @Autowired
-    public WeatherSubject(WeatherRepository weatherRepository) {
-
-        this.weatherRepository = weatherRepository;
+    public WeatherSubject() {
+        observers = new ArrayList<>();
     }
 
     @Override
@@ -41,7 +38,7 @@ public class WeatherSubject implements Subject {
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
             Observer observer = (Observer)observers.get(i);
-            observer.update(maxTemp, minTemp, pressure);
+            observer.update(maxTemp, minTemp,humidity, pressure, temp);
         }
     }
 
@@ -49,10 +46,14 @@ public class WeatherSubject implements Subject {
         notifyObservers();
     }
 
-    public void setMeasurements(double maxTemp, double minTemp, double pressure) {
+    @Override
+    public void setMeasurements(double maxTemp, double minTemp, double humidity, double pressure, double temp) {
         this.maxTemp = maxTemp;
         this.pressure = pressure;
+        this.humidity = humidity;
         this.minTemp = minTemp;
+        this.temp = temp;
+
         measurementsChanged();
     }
 }

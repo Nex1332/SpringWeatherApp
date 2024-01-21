@@ -1,10 +1,9 @@
-package de.maksym.weatherApp.repository;
+package de.maksym.weatherApp.web.DAO;
 
-import de.maksym.weatherApp.interfaces.Subject;
-import de.maksym.weatherApp.subject.WeatherSubject;
+import de.maksym.weatherApp.observer.interfaces.Subject;
+import de.maksym.weatherApp.observer.subject.WeatherSubject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -13,12 +12,12 @@ import java.net.URL;
 import java.net.URLConnection;
 
 @Component
-public class WeatherRepository{
-    final WeatherSubject weatherSubject;
+public class WeatherDAO {
+    final Subject subject;
 
     @Autowired
-    public WeatherRepository(WeatherSubject weatherSubject) {
-        this.weatherSubject = weatherSubject;
+    public WeatherDAO(WeatherSubject subject) {
+        this.subject = subject;
     }
 
     public void initialize(String city) {
@@ -26,15 +25,12 @@ public class WeatherRepository{
         JSONObject object = null;
         if(!output.isEmpty()) {
             object = new JSONObject(output);
-            System.out.println("Температура " + object.getJSONObject("main").getDouble("temp"));
-            System.out.println("Ощущается " + object.getJSONObject("main").getDouble("feels_like"));
-            System.out.println("Максимум " + object.getJSONObject("main").getDouble("temp_max"));
-            System.out.println("Минимум " + object.getJSONObject("main").getDouble("temp_min"));
-            System.out.println("Давление " + object.getJSONObject("main").getDouble("pressure"));
         }
-        weatherSubject.setMeasurements(object.getJSONObject("main").getDouble("temp_max"),
+        subject.setMeasurements(object.getJSONObject("main").getDouble("temp_max"),
                 object.getJSONObject("main").getDouble("temp_min"),
-                object.getJSONObject("main").getDouble("pressure"));
+                object.getJSONObject("main").getDouble("humidity"),
+                object.getJSONObject("main").getDouble("pressure"),
+                object.getJSONObject("main").getDouble("temp"));
     }
 
     public static String getUrlContent(String urlAddress) {
