@@ -14,22 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WebController{
 
-    AverageTemperatureDisplay averageTemperatureDisplay;
-    CurrentConditionsDisplay currentConditionsDisplay;
-
-    ForeCastDisplay foreCastDisplay;
-    WeatherDAO weatherDAO;
+    @Autowired AverageTemperatureDisplay averageTemperatureDisplay;
+    @Autowired CurrentConditionsDisplay currentConditionsDisplay;
+    @Autowired ForeCastDisplay foreCastDisplay;
+    @Autowired WeatherDAO weatherDAO;
     String currentCity;
-
-    public WebController(AverageTemperatureDisplay averageTemperatureDisplay,
-                         CurrentConditionsDisplay currentConditionsDisplay,
-                         ForeCastDisplay foreCastDisplay,
-                         WeatherDAO weatherDAO) {
-        this.averageTemperatureDisplay = averageTemperatureDisplay;
-        this.currentConditionsDisplay = currentConditionsDisplay;
-        this.foreCastDisplay = foreCastDisplay;
-        this.weatherDAO = weatherDAO;
-    }
 
     @GetMapping()
     public String start(){
@@ -51,6 +40,7 @@ public class WebController{
 
     @GetMapping("/currentConditions")
     public String currentConditions(Model model){
+        weatherDAO.initialize(currentCity);
         model.addAttribute("currentConditionsDisplay", currentConditionsDisplay);
         return "/conditions";
     }
