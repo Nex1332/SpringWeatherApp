@@ -18,12 +18,12 @@ public class CurrentConditionsDisplay implements Observer, DisplayElements {
 
     @Override
     public String display() {
-        return temp + "F temp and " + humidity + " humidity";
+        return temp + "C temp and " + humidity + " humidity";
     }
 
     @Override
     public void update(double maxTemp, double minTemp, double humidity, double pressure, double temp) {
-        this.temp = temp;
+        this.temp = Math.round((temp - 273.15) * 10.0) / 10.0;
         this.humidity = humidity;
     }
 

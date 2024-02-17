@@ -2,9 +2,7 @@ package de.maksym.weatherApp.observer.subject;
 
 import de.maksym.weatherApp.observer.interfaces.Observer;
 import de.maksym.weatherApp.observer.interfaces.Subject;
-import de.maksym.weatherApp.web.DAO.WeatherDAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.*;
 

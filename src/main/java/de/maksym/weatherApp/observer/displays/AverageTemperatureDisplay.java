@@ -19,16 +19,16 @@ public class AverageTemperatureDisplay implements Observer, DisplayElements {
 
     @Override
     public void update(double maxTemp, double minTemp, double humidity, double pressure, double temp) {
-        this.maxTemp = maxTemp;
-        this.minTemp = minTemp;
-        this.averageTemp = (maxTemp + minTemp) / 2;
+        this.maxTemp = Math.round((maxTemp - 273.15) * 10.0) / 10.0;
+        this.minTemp = Math.round((minTemp - 273.15) * 10.0) / 10.0;
+        this.averageTemp = (this.maxTemp + this.minTemp) / 2;
     }
 
     @Override
     public String display() {
-        return "Average Temperature " + averageTemp + "F\n" +
-                "Max Temperature " + maxTemp + "F\n" +
-                "Min Temperature " + minTemp + "F";
+        return "Average Temperature " + averageTemp + "\n" +
+                "Max Temperature " + maxTemp + "\n" +
+                "Min Temperature " + minTemp;
     }
 
     public double getMaxTemp() {
