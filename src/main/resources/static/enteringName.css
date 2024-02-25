@@ -1,0 +1,58 @@
+body {
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+
+	font-size: 15px;
+	line-height: 1.6;
+	color: #333;
+}
+
+.intro_text {
+	margin: 60px 700px 0;
+	font-size: 72px;
+	font-family: 'Kaushan Script', cursive;
+}
+
+.bar_container {
+	margin-left: 740px;
+	margin-top: 160px;
+}
+
+.bar {
+	border-radius: 36px;
+	border: 1px solid #000000;
+}
+
+.bar {
+	position: relative;
+
+	margin-top: 40px;
+}
+
+.bar input, .bar button {
+	border: 1px solid #e5e5e5;
+	outline: none;
+}
+.bar input {
+	width: 380px;
+	height: 42px;
+	background: #fff;
+	padding-left: 15px;
+
+
+
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+.bar button {
+	width: 150px;
+	height: 42px;
+
+	position: absolute;
+	right: 100px;
+
+	background: #95e1d3;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+}

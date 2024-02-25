@@ -8,12 +8,14 @@ import java.util.*;
 
 @Component
 public class WeatherSubject implements Subject {
-    private ArrayList observers;
+    private ArrayList<Observer> observers;
     private double temp;
     private double maxTemp;
     private double minTemp;
     private double humidity;
     private double pressure;
+    private long sunset;
+    private long sunrise;
 
     public WeatherSubject() {
         observers = new ArrayList<>();
@@ -35,8 +37,8 @@ public class WeatherSubject implements Subject {
     @Override
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
-            Observer observer = (Observer)observers.get(i);
-            observer.update(maxTemp, minTemp,humidity, pressure, temp);
+            Observer observer = observers.get(i);
+            observer.update(maxTemp, minTemp,humidity, pressure, temp, sunrise, sunset);
         }
     }
 
@@ -45,12 +47,16 @@ public class WeatherSubject implements Subject {
     }
 
     @Override
-    public void setMeasurements(double maxTemp, double minTemp, double humidity, double pressure, double temp) {
+    public void setMeasurements(double maxTemp, double minTemp,
+                                double humidity, double pressure,
+                                double temp, long sunrise, long sunset) {
         this.maxTemp = maxTemp;
         this.pressure = pressure;
         this.humidity = humidity;
         this.minTemp = minTemp;
         this.temp = temp;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
 
         measurementsChanged();
     }

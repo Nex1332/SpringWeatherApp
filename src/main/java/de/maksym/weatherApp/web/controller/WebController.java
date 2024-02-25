@@ -3,6 +3,7 @@ package de.maksym.weatherApp.web.controller;
 import de.maksym.weatherApp.observer.displays.AverageTemperatureDisplay;
 import de.maksym.weatherApp.observer.displays.CurrentConditionsDisplay;
 import de.maksym.weatherApp.observer.displays.ForeCastDisplay;
+import de.maksym.weatherApp.observer.displays.SystemDisplay;
 import de.maksym.weatherApp.web.DAO.WeatherDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,21 +19,23 @@ public class WebController{
     final AverageTemperatureDisplay averageTemperatureDisplay;
     final CurrentConditionsDisplay currentConditionsDisplay;
     final ForeCastDisplay foreCastDisplay;
+    final SystemDisplay systemDisplay;
     final WeatherDAO weatherDAO;
     String currentCity;
 
     public WebController(AverageTemperatureDisplay averageTemperatureDisplay,
                          CurrentConditionsDisplay currentConditionsDisplay,
-                         ForeCastDisplay foreCastDisplay, WeatherDAO weatherDAO) {
+                         ForeCastDisplay foreCastDisplay, SystemDisplay systemDisplay, WeatherDAO weatherDAO) {
         this.averageTemperatureDisplay = averageTemperatureDisplay;
         this.currentConditionsDisplay = currentConditionsDisplay;
         this.foreCastDisplay = foreCastDisplay;
+        this.systemDisplay = systemDisplay;
         this.weatherDAO = weatherDAO;
     }
 
     @GetMapping()
     public String start(){
-        return "/start";
+        return "enteringTheCityName";
     }
 
     @PostMapping("/weather")
@@ -41,7 +44,7 @@ public class WebController{
             currentCity = city;
             weatherDAO.initialize(city);
         } catch (IOException e){
-            return "/falseCity";
+            return "/exception/falseCity";
         }
         return "/homePage";
     }
@@ -54,7 +57,7 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage");
         }
-        return "/temperature";
+        return "/display/temperature";
     }
 
     @GetMapping("/currentConditions")
@@ -65,7 +68,7 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
-        return "/conditions";
+        return "/display/conditions";
     }
 
     @GetMapping("/foreCast")
@@ -76,7 +79,19 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
-        return "/cast";
+        return "/display/cast";
     }
+
+    @GetMapping("/sys")
+    public String System(Model model){
+        try {
+            weatherDAO.initialize(currentCity);
+            model.addAttribute("system", systemDisplay);
+        } catch (IOException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+        }
+        return "/display/system";
+    }
+
 
 }

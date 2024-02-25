@@ -31,6 +31,8 @@ public class WeatherDAO {
                 response.getMain().getTemp_min(),
                 response.getMain().getHumidity(),
                 response.getMain().getPressure(),
-                response.getMain().getTemp());
+                response.getMain().getTemp(),
+                response.getSys().getSunrise(),
+                response.getSys().getSunset());
     }
 }

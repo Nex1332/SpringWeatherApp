@@ -1,42 +1,49 @@
 package de.maksym.weatherApp.observer.displays;
 
-import de.maksym.weatherApp.observer.Conversion;
 import de.maksym.weatherApp.observer.interfaces.DisplayElements;
 import de.maksym.weatherApp.observer.interfaces.Observer;
 import de.maksym.weatherApp.observer.interfaces.Subject;
 import org.springframework.stereotype.Component;
 
-@Component
-public class CurrentConditionsDisplay implements Observer, DisplayElements {
-    private Subject subject;
-    private Conversion conversion;
-    double temp;
-    double humidity;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
-    public CurrentConditionsDisplay(Subject subject, Conversion conversion) {
+@Component
+public class SystemDisplay implements DisplayElements, Observer {
+    private Subject subject;
+    private long sunrise;
+    private long sunset;
+
+    public SystemDisplay(Subject subject) {
         this.subject = subject;
-        this.conversion = conversion;
         subject.registerObserver(this);
     }
 
     @Override
     public String display() {
-        return temp + "C temp and " + humidity + " humidity";
+        return null;
     }
 
     @Override
     public void update(double maxTempKelvins, double minTempKelvins,
                        double humidity, double pressure,
                        double tempKelvins, long sunrise, long sunset) {
-        this.temp = conversion.conversionFromKelvinsToCelsius(tempKelvins);
-        this.humidity = humidity;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
     }
 
-    public double getTemp() {
-        return temp;
+    public String conversationToTime(Long unixTimestamp){
+        Date date = new Date(unixTimestamp * 1000L);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        return sdf.format(date);
     }
 
-    public double getHumidity() {
-        return humidity;
+    public String getSunrise() {
+        return conversationToTime(sunrise);
+    }
+
+    public String getSunset() {
+        return conversationToTime(sunset);
     }
 }
