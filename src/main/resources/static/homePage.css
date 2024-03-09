@@ -1,0 +1,32 @@
+.intro_text {
+    margin: 140px 580px 0;
+
+    align-items: center;
+    font-size: 70px;
+    font-family: 'Kaushan Script', cursive;
+}
+
+.displays_container {
+    margin-left: 590px;
+    margin-top: 20px;
+}
+
+.display_box {
+    margin-top: 10px;
+
+    border: 2px solid black;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.display_link {
+    font-size: 20px;
+    font-weight: 100;
+    text-decoration: none;
+
+    color: black;
+
+    margin: 0;
+}
+
