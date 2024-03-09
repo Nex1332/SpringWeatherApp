@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Conditions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/display/conditions.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat:wght@100;400;700&family=Roboto:ital,wght@0,100;1,300&display=swap" rel="stylesheet">
+    <title>Home Page</title>
+    <style type="text/css"></style>
 </head>
 <body>
-<p>The Temperature: <span th:text="${currentConditionsDisplay.getTemp()}"></span> C</p>
-<p>The Humidity: <span th:text="${currentConditionsDisplay.getHumidity()}"></span></p>
+    <div class="conditions_container">
+        <p class="display_name">Actual Conditions</p>
+        <div class="info_container">
+            <div class="suptitles_container">
+                <p class="conditions_text">The Temperature: <span th:text="${currentConditionsDisplay.getTemp()}"></span> C</p>
+                <p class="conditions_text">The Humidity: <span th:text="${currentConditionsDisplay.getHumidity()}"></span></p>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
