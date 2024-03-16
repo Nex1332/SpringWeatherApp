@@ -4,6 +4,13 @@ body {
 	background: radial-gradient(#e377ff 0%, #9886ff 100%);
 }
 
+.entering_name_container {
+	position: absolute;
+	top: 37%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .intro_text {
 	margin: 60px 280px 0;
 	width: 100%;

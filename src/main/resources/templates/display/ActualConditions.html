@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/display/ActualConditions.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat:wght@100;400;700&family=Roboto:ital,wght@0,100;1,300&display=swap"
+          rel="stylesheet">
+    <title>Actual Conditions</title>
+    <style type="text/css"></style>
+</head>
+<body>
+<div class="header_inter">
+    <nav class="nav">
+        <a th:href="@{/weather}" class="nav_link">Home Page</a>
+    </nav>
+</div>
+<div class="conditions_container">
+    <p class="display_name">Actual Conditions</p>
+    <div class="info_container">
+        <div class="supTitles_container">
+            <a href="#" class="conditions_text">The Temperature: <span th:text="${currentConditionsDisplay.getTemp()}"></span> C
+            </a>
+            <a href="#" class="conditions_text">The Humidity: <span th:text="${currentConditionsDisplay.getHumidity()}"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

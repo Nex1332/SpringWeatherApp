@@ -1,14 +1,24 @@
-.intro_text {
-    margin: 140px 580px 0;
+body {
+    background-color: #025174;
+}
 
-    align-items: center;
+.intro_text {
     font-size: 70px;
     font-family: 'Kaushan Script', cursive;
 }
 
+.container {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .displays_container {
-    margin-left: 590px;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .display_box {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/enteringName.css">
+    <link rel="stylesheet" type="text/css" href="/EnteringTheCityName.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat:wght@100;400;700&family=Roboto:ital,wght@0,100;1,300&display=swap" rel="stylesheet">
@@ -10,16 +10,15 @@
     <style type="text/css"></style>
 </head>
 <body>
-
-    <div class="intro">
-        <p class="intro_text">The Weather App</p>
+    <div class="entering_name_container">
+        <div class="intro">
+            <p class="intro_text">The Weather App</p>
+        </div>
+        <div class="bar">
+            <form method="POST" th:action="@{/weather}" >
+                <input class="bar_text" type="text" name="city" id="city" placeholder="Your City...">
+            </form>
+        </div>
     </div>
-
-    <div class="bar">
-        <form method="POST" th:action="@{/weather}" >
-            <input class="bar_text" type="text" name="city" id="city" placeholder="Your City...">
-        </form>
-    </div>
-
 </body>
 </html>

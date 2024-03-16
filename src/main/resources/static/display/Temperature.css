@@ -1,0 +1,70 @@
+body {
+    background-color: #025174;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: grid;
+    place-items: center;
+}
+
+.second_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro_line {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 52px;
+}
+
+.info_box {
+    margin-bottom: 40px;
+
+    border: 2px solid black;
+    padding: 10px;
+    width: 320px;
+    text-align: center;
+}
+
+.conditions_text {
+    font-size: 24px;
+    color: black;
+}
+
+/* NAV */
+
+.header_inter {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.nav_link {
+    display: inline-block;
+    margin: 15px 30px;
+    position: relative;
+
+    color: black;
+    transition: all .4s ease
+}
+
+.nav_link:hover {
+    color: #fce38a;
+    border-bottom: 3px solid #fce38a;
+}

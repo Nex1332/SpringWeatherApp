@@ -35,18 +35,28 @@ public class WebController{
 
     @GetMapping()
     public String start(){
-        return "enteringTheCityName";
+        return "EnteringTheCityName";
     }
 
     @PostMapping("/weather")
-    public String weatherApp(@ModelAttribute("city") String city){
+    public String enterHomePage(@ModelAttribute("city") String city){
         try {
             currentCity = city;
             weatherDAO.initialize(city);
         } catch (IOException e){
-            return "/exception/falseCity";
+            return "exception/Exception";
         }
-        return "/homePage";
+        return "HomePage";
+    }
+
+    @GetMapping("/weather")
+    public String returnHomePage(){
+        try {
+            weatherDAO.initialize(currentCity);
+        } catch (IOException e){
+            return "exception/Exception";
+        }
+        return "HomePage";
     }
 
     @GetMapping("/averageTemperature")
@@ -57,7 +67,7 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage");
         }
-        return "/display/temperature";
+        return "display/Temperature";
     }
 
     @GetMapping("/currentConditions")
@@ -68,7 +78,7 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
-        return "/display/conditions";
+        return "display/ActualConditions";
     }
 
     @GetMapping("/foreCast")
@@ -79,7 +89,7 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
-        return "/display/cast";
+        return "display/ForeCast";
     }
 
     @GetMapping("/sys")
@@ -90,8 +100,6 @@ public class WebController{
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
-        return "/display/system";
+        return "display/SunriseAndSunset";
     }
-
-
 }

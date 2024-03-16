@@ -1,0 +1,51 @@
+body {
+    background-color: #025174;
+}
+
+a{
+    text-decoration: none;
+}
+
+.conditions_text {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 52px;
+    color: black;
+
+    width: 1200px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* NAV */
+
+.header_inter {
+    display: flex;
+    justify-content: flex-end;
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.nav_link {
+    display: inline-block;
+    margin: 15px 30px;
+    position: relative;
+
+    color: black;
+    transition: all .4s ease
+}
+
+.nav_link:hover {
+    color: #fce38a;
+    border-bottom: 3px solid #fce38a;
+}
