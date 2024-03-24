@@ -15,16 +15,16 @@
         <p class="intro_text">Displays</p>
         <div class="displays_container">
             <div class="display_box">
-                <a class="display_link" th:href="@{/currentConditions}">Actual Conditions</a>
+                <a class="display_link" th:href="@{/currentConditions/{city}(city=${currentCity})}">Actual Conditions</a>
             </div>
             <div class="display_box">
-                <a class="display_link" th:href="@{/averageTemperature}">Temperature</a>
+                <a class="display_link" th:href="@{/averageTemperature/{city}(city=${currentCity})}">Temperature</a>
             </div>
             <div class="display_box">
-                <a class="display_link" th:href="@{/foreCast}">Fore Cast</a>
+                <a class="display_link" th:href="@{/foreCast/{city}(city=${currentCity})}">Fore Cast</a>
             </div>
             <div class="display_box">
-                <a class="display_link" th:href="@{/sys}">Sunrise and sunset</a>
+                <a class="display_link" th:href="@{/sys/{city}(city=${currentCity})}">Sunrise and sunset</a>
             </div>
         </div>
     </div>

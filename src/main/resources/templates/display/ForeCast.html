@@ -13,7 +13,7 @@
 <body>
     <div class="header_inter">
         <nav class="nav">
-            <a th:href="@{/weather}" class="nav_link">Home Page</a>
+            <a th:href="@{/weather/{city}(city=${city})}" class="nav_link">Home Page</a>
         </nav>
     </div>
     <a href="#" class="conditions_text"><span th:text="${foreCastDisplay}"></span></a>

@@ -5,10 +5,13 @@ import de.maksym.weatherApp.observer.displays.CurrentConditionsDisplay;
 import de.maksym.weatherApp.observer.displays.ForeCastDisplay;
 import de.maksym.weatherApp.observer.displays.SystemDisplay;
 import de.maksym.weatherApp.web.DAO.WeatherDAO;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
@@ -21,7 +24,6 @@ public class WebController{
     final ForeCastDisplay foreCastDisplay;
     final SystemDisplay systemDisplay;
     final WeatherDAO weatherDAO;
-    String currentCity;
 
     public WebController(AverageTemperatureDisplay averageTemperatureDisplay,
                          CurrentConditionsDisplay currentConditionsDisplay,
@@ -39,9 +41,9 @@ public class WebController{
     }
 
     @PostMapping("/weather")
-    public String enterHomePage(@ModelAttribute("city") String city){
+    public String enterHomePage(@ModelAttribute("city") String city, HttpSession session, Model model){
         try {
-            currentCity = city;
+            model.addAttribute("currentCity", city);
             weatherDAO.initialize(city);
         } catch (IOException e){
             return "exception/Exception";
@@ -49,20 +51,21 @@ public class WebController{
         return "HomePage";
     }
 
-    @GetMapping("/weather")
-    public String returnHomePage(){
+    @GetMapping("/weather/{city}")
+    public String returnHomePage(HttpSession session, @PathVariable("city") String city, Model model){
         try {
-            weatherDAO.initialize(currentCity);
+            model.addAttribute("currentCity", city);
+            weatherDAO.initialize(city);
         } catch (IOException e){
             return "exception/Exception";
         }
         return "HomePage";
     }
 
-    @GetMapping("/averageTemperature")
-    public String averageTemperature(Model model){
+    @GetMapping("/averageTemperature/{city}")
+    public String averageTemperature(Model model, HttpSession session,@PathVariable("city") String city){
         try {
-            weatherDAO.initialize(currentCity);
+            weatherDAO.initialize(city);
             model.addAttribute("averageTemperatureDisplay", averageTemperatureDisplay);
         } catch (IOException e) {
             model.addAttribute("errorMessage");
@@ -70,10 +73,10 @@ public class WebController{
         return "display/Temperature";
     }
 
-    @GetMapping("/currentConditions")
-    public String currentConditions(Model model){
+    @GetMapping("/currentConditions/{city}")
+    public String currentConditions(Model model,@PathVariable("city") String city){
         try {
-            weatherDAO.initialize(currentCity);
+            weatherDAO.initialize(city);
             model.addAttribute("currentConditionsDisplay", currentConditionsDisplay);
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
@@ -81,10 +84,10 @@ public class WebController{
         return "display/ActualConditions";
     }
 
-    @GetMapping("/foreCast")
-    public String foreCast(Model model){
+    @GetMapping("/foreCast/{city}")
+    public String foreCast(Model model, HttpSession session,@PathVariable("city") String city){
         try {
-            weatherDAO.initialize(currentCity);
+            weatherDAO.initialize(city);
             model.addAttribute("foreCastDisplay", foreCastDisplay.display());
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
@@ -92,10 +95,10 @@ public class WebController{
         return "display/ForeCast";
     }
 
-    @GetMapping("/sys")
-    public String System(Model model){
+    @GetMapping("/sys/{city}")
+    public String System(Model model, HttpSession session, @PathVariable String city){
         try {
-            weatherDAO.initialize(currentCity);
+            weatherDAO.initialize(city);
             model.addAttribute("system", systemDisplay);
         } catch (IOException e) {
             model.addAttribute("errorMessage", e.getMessage());
