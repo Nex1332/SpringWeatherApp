@@ -5,8 +5,6 @@ import de.maksym.weatherApp.observer.displays.CurrentConditionsDisplay;
 import de.maksym.weatherApp.observer.displays.ForeCastDisplay;
 import de.maksym.weatherApp.observer.displays.SystemDisplay;
 import de.maksym.weatherApp.web.DAO.WeatherDAO;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +16,11 @@ import java.io.IOException;
 
 @Controller
 public class WebController{
-
     final AverageTemperatureDisplay averageTemperatureDisplay;
     final CurrentConditionsDisplay currentConditionsDisplay;
     final ForeCastDisplay foreCastDisplay;
     final SystemDisplay systemDisplay;
     final WeatherDAO weatherDAO;
-
     public WebController(AverageTemperatureDisplay averageTemperatureDisplay,
                          CurrentConditionsDisplay currentConditionsDisplay,
                          ForeCastDisplay foreCastDisplay, SystemDisplay systemDisplay, WeatherDAO weatherDAO) {
@@ -41,7 +37,7 @@ public class WebController{
     }
 
     @PostMapping("/weather")
-    public String enterHomePage(@ModelAttribute("city") String city, HttpSession session, Model model){
+    public String enterHomePage(@ModelAttribute("city") String city, Model model){
         try {
             model.addAttribute("currentCity", city);
             weatherDAO.initialize(city);
@@ -52,7 +48,7 @@ public class WebController{
     }
 
     @GetMapping("/weather/{city}")
-    public String returnHomePage(HttpSession session, @PathVariable("city") String city, Model model){
+    public String returnHomePage(Model model, @PathVariable("city") String city){
         try {
             model.addAttribute("currentCity", city);
             weatherDAO.initialize(city);
@@ -63,45 +59,45 @@ public class WebController{
     }
 
     @GetMapping("/averageTemperature/{city}")
-    public String averageTemperature(Model model, HttpSession session,@PathVariable("city") String city){
+    public String averageTemperature(Model model, @PathVariable("city") String city){
         try {
             weatherDAO.initialize(city);
             model.addAttribute("averageTemperatureDisplay", averageTemperatureDisplay);
         } catch (IOException e) {
-            model.addAttribute("errorMessage");
+            System.out.println("Всё сломалось)");
         }
         return "display/Temperature";
     }
 
     @GetMapping("/currentConditions/{city}")
-    public String currentConditions(Model model,@PathVariable("city") String city){
+    public String currentConditions(Model model, @PathVariable("city") String city){
         try {
             weatherDAO.initialize(city);
             model.addAttribute("currentConditionsDisplay", currentConditionsDisplay);
         } catch (IOException e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            System.out.println("Всё сломалось)");
         }
         return "display/ActualConditions";
     }
 
     @GetMapping("/foreCast/{city}")
-    public String foreCast(Model model, HttpSession session,@PathVariable("city") String city){
+    public String foreCast(Model model, @PathVariable("city") String city){
         try {
             weatherDAO.initialize(city);
             model.addAttribute("foreCastDisplay", foreCastDisplay.display());
         } catch (IOException e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            System.out.println("Всё сломалось)");
         }
         return "display/ForeCast";
     }
 
     @GetMapping("/sys/{city}")
-    public String System(Model model, HttpSession session, @PathVariable String city){
+    public String System(Model model, @PathVariable("city") String city){
         try {
             weatherDAO.initialize(city);
             model.addAttribute("system", systemDisplay);
         } catch (IOException e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            System.out.println("Всё сломалось)");
         }
         return "display/SunriseAndSunset";
     }
